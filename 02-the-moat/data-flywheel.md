@@ -43,22 +43,22 @@
 ## Encroachment Threat Assessment
 
 ### 1. Platform Encroachment
-**Attacker:**
-**Vector:**
-**Time-to-threat:**
-**% of value at risk:**
+**Attacker:** Apple — specifically the AirPods Pro / Health team.
+**Vector:** Apple already shipped a clinical-grade "Hearing Aid" mode in AirPods Pro 2 (iOS 18, 2024) alongside Live Listen and Conversation Boost. The natural next step is layering contextual/adaptive learning onto that existing feature using on-device ML plus Health app data, then bundling it free into an iOS update — no new hardware, no third-party integration needed.
+**Time-to-threat:** 12–18 months — Apple has shipped major hearing-health features roughly annually; an adaptive layer fits the established release cadence.
+**% of value at risk:** ~60% — but only among iPhone + AirPods Pro users, which skews toward younger/mild-hearing-loss users rather than people on prescription hearing aids from Phonak/Oticon/etc. That segment (~40% of the addressable market) stays out of Apple's reach since those devices don't route through AirPods' pipeline.
 
 ### 2. Vertical Competitor
-**Attacker:**
-**Vector:**
-**Time-to-threat:**
-**% of value at risk:**
+**Attacker:** Whisper (whisper.ai) — an AI-hearing-aid startup whose entire pitch is a continuously learning system ("Whisper Brain") that adapts sound processing from real-world usage. *(Status should be re-verified before relying on this — this space has had funding/ownership changes.)*
+**Vector:** Whisper owns the full hardware-to-cloud loop — their own hearing aid device feeds signal-processing telemetry directly into their AI, which is denser and more direct than Wavelength's app-layer nudges on top of third-party OEM hardware.
+**Time-to-threat:** Already live — not a future risk, an existing multi-year head start on the data itself.
+**% of value at risk:** ~50% — capped by the higher friction of switching hearing aid hardware (vs. switching apps), but a full threat to the "deepest personalization" claim, since their data loop is structurally tighter than ours.
 
 ### 3. Adjacent Expansion
-**Attacker:**
-**Vector:**
-**Time-to-threat:**
-**% of value at risk:**
+**Attacker:** Sonova (parent company of Phonak, the largest hearing aid manufacturer globally) — via the existing myPhonak companion app.
+**Vector:** Sonova ships adaptive environment-learning as a routine software update to myPhonak, which millions of existing Phonak wearers already have installed and paired — zero acquisition cost, zero new download.
+**Time-to-threat:** 6–12 months — this is a software-only feature add on hardware they already sell, far faster than a hardware refresh cycle.
+**% of value at risk:** ~70% within the Phonak installed base specifically (no reason to install a third-party app if it's free and native), but only ~25–30% of the total market since it doesn't touch Oticon, ReSound, Widex, or Signia wearers.
 
 ---
 
