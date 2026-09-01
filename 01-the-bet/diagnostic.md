@@ -3,50 +3,50 @@
 ## Product
 <!-- Name the product you're diagnosing. Real product at your company — not a hypothetical. -->
 
-**Product:** Signal — AI copilot for PMs
-**Your Role:** Product Manager, building this as a prototype bet
+**Product:** Wavelength — Context-Adaptive Listening Copilot for hearing aid users
+**Your Role:** Product Manager, exploratory bet
 
 ---
 
 ## Scores
 
-### Contextual Moat — 2/5
+### Contextual Moat — 4/5
 *Workflow depth × switching cost. Would users leave in a weekend if a competitor showed up?*
 
 **Score rationale:**
-Signal is currently a read-only synthesis layer, not a system of record. PMs still make and track roadmap decisions in Jira/Linear/Productboard — "Add to Roadmap" pushes data out, it doesn't hold it. If a PM stopped using Signal tomorrow, nothing breaks; they just go back to reading six tabs. No workflow gravity yet, and low switching cost.
+Wavelength sits on a device the user wears all day, continuously adjusting sound profiles per environment (restaurant, office, outdoors). After months of use, the app holds a set of trained, personalized profiles — switching to a competitor means starting from zero, and in hearing, a degraded or generic-sounding experience is immediately and viscerally noticeable. That's a high switching cost built from daily, non-optional use.
 
 **Named attacker (from partner challenge):**
-Productboard — already owns the feedback-to-roadmap workflow PMs use daily; could ship AI clustering as a feature update inside a tool teams are already locked into, rather than asking them to add a new one.
+The hearing aid OEM itself (Phonak, Oticon, ReSound) — they already own the Bluetooth/firmware relationship and could bundle equivalent personalization directly into their first-party app.
 
 ---
 
-### Data Advantage — 2/5
+### Data Advantage — 4/5
 *Proprietary signal that compounds with usage. What do you see that OpenAI doesn't?*
 
 **Score rationale:**
-All six inputs (Salesforce, store reviews, support calls, interviews, marketing, sales) are the customer's own data, pulled via standard APIs — nothing proprietary to Signal. There's no outcome-tracking loop yet (e.g., "this cluster got added to roadmap → shipped → did retention move") that would let the model compound advantage over time. Today it's a one-shot transformation, not a learning system.
+The core signal — manual volume/clarity/noise-reduction corrections tagged by environment — is genuinely personal and not obtainable through any public API. Today's OEM apps are thin volume-adjustment UIs, not learning systems, so there's a real head start in building a model that improves per-user the longer someone uses it.
 
 **Named attacker (from partner challenge):**
-A thin LLM wrapper — anyone with the same Salesforce/Gong/Zendesk API keys and a clustering prompt can reproduce the core output in a weekend.
+Phonak myPhonak / Oticon ON — the existing OEM companion apps, if they invest in an adaptive-learning layer on top of the device data they already have.
 
 ---
 
-### Platform Exposure — 1/5
+### Platform Exposure — 2/5
 *Encroachment risk × pivot speed. If Apple/Google/OpenAI ships your hero feature native — then what?*
 
 **Score rationale:**
-This is the sharpest risk. Salesforce is literally one of Signal's own six source integrations — meaning the platform Signal depends on for data already has native access, an existing PM-adjacent customer base, and is actively shipping agentic AI (Agentforce/Einstein Copilot) directly into that data. They need zero new integrations to ship "feedback synthesis" as a bolt-on feature.
+Real mid-term risk. Apple is aggressively expanding native hearing-health features (AirPods Pro clinical-grade hearing aid mode, Live Listen, Conversation Boost) with full audio-pipeline access and default distribution to hundreds of millions of devices. The mitigating factor: this doesn't yet cover prescription hearing aids from third-party OEMs (Phonak, Oticon, ReSound, Widex, Signia), which fragments the market and buys real time.
 
 **Named attacker (from partner challenge):**
-Salesforce (Agentforce / Einstein Copilot).
+Apple (AirPods Pro Hearing Health / Live Listen).
 
 ---
 
 ## Top Vulnerability
 <!-- One line: what's the single biggest strategic risk? -->
-Platform exposure — the source-of-truth platform Signal depends on for its core data can ship the same synthesis natively, with zero integration friction, eliminating the reason for a separate layer to exist.
+Apple's expansion of native hearing-health features into AirPods Pro — full audio-pipeline access plus massive default distribution — is the most credible long-term threat, even though it doesn't yet reach prescription third-party hearing aid wearers.
 
 ## Confidence Level
 <!-- H / M / L — how confident are you in this bet after the diagnostic? -->
-H — this isn't speculative; it's the most structurally obvious risk since the platform already owns the data Signal is built on top of.
+M — a real vulnerability, but slower-moving and narrower in scope than a platform that already owns the exact data source (as with Signal/Salesforce), leaving a real window to build defensible personalization data first.
