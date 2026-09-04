@@ -30,12 +30,23 @@
 ## Confidence UX Design
 
 **Approach:** show uncertainty / tiered confidence / human-in-loop trigger
+Tiered confidence, combined with visible reasoning at each level and a human-in-loop trigger at the low end — the classifier never silently forces a wrong sound profile onto someone's ears, since a bad hearing adjustment is felt immediately, unlike a bad text suggestion.
 
 **High confidence (>90%):**
+Auto-apply the learned profile silently. The environment pill shows the detected name (e.g., "Restaurant") with no confirmation step. The user can still open it and manually adjust at any time — that adjustment becomes a correction event, not an error report.
+
 **Medium confidence (70-90%):**
+Apply the best-guess profile, but visibly soften it — the pill renders as "Restaurant?" with a dashed border, plus a one-tap "not quite?" affordance. Tapping surfaces the top 2 candidate environments (e.g., Restaurant vs. Food Court) so the user can confirm in a single gesture rather than fully re-adjusting sliders from scratch.
+
 **Low confidence (<70%):**
+Don't auto-apply any learned profile — fall back to the user's manual/default settings, and show a lightweight "New place? Tell us where you are" prompt instead of guessing. This is the human-in-loop trigger: the one-tap answer becomes a new labeled example fed back into the golden dataset, rather than risking a wrong, uncomfortable setting.
 
 **User control surface:**
+- **Users adjust the confidence threshold — Y (indirectly):** exposed as a simple "Trust new guesses: Cautious / Balanced / Confident" preset rather than a raw percentage — a numeric slider isn't meaningful to most hearing aid wearers.
+- **Users see AI reasoning/drivers — Y:** tapping the environment pill shows the acoustic signals behind the call in plain language (e.g., "high chatter, low reverb, GPS: restaurant district"), since trust in a sound change requires understanding why it happened.
+- **Users correct & override outputs — Y:** every applied profile stays adjustable via the sliders on the main dashboard; that adjustment is itself the correction signal (the Correction/Preference loops already scored 4/5 in the flywheel).
+- **Corrections feed back into the model/dataset — Y:** this is the exact fix flagged as the 48-hour action in the Kill Switch audit (currently Locked/no capture) — every override gets logged as a new labeled row in the golden dataset.
+- **Specifics:** every environment pill carries a one-tap correction with reason codes — "wrong environment," "right environment, wrong profile," "no environment fits" — which append directly to the `environment-classifier` golden dataset and retrain the per-user profile within 24 hours.
 
 ## Reliability Contract
 
