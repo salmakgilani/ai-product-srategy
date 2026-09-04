@@ -52,13 +52,17 @@ Don't auto-apply any learned profile — fall back to the user's manual/default 
 
 | Metric | Target | Measurement | Alert Threshold |
 |--------|--------|-------------|-----------------|
-| Accuracy | | | |
-| Hallucination rate | | | |
-| Latency (p95) | | | |
-| Drift velocity | | | |
+| Accuracy | 90% | Weekly · golden dataset (currently 15 rows, scaling to 150+) · rule-judge for clean matches + LLM-judge (GPT-4o) for ambiguous/adversarial rows, per the Judge Type column above | <85% → pages on-call PM |
+| Hallucination rate | <2% | Same weekly run · flags any row where the model outputs a confident label instead of abstaining on the adversarial/silence/out-of-taxonomy test rows (#9, #11, #14) | >3% → pauses auto-apply in prod, rolls all users back to confirm-before-apply mode |
+| Latency (p95) | <300ms | Continuous prod monitoring (Datadog) on the classification call path — must be near-instant since this fires the moment a user walks into a room, not on a request they're waiting on | >600ms for 5 min → pages on-call engineer |
+| Drift velocity | <0.5%/wk | 4-week rolling accuracy trend against the golden set | >1%/wk decay → triggers gold-set audit |
+
+**Defensible bands:** Accuracy 88-93 (not 99) · Hallucination <2% · Latency <300ms · Drift <0.5%/wk
+**Consequence patterns:** 🔄 Auto-rollback to confirm-before-apply · 📟 Pages on-call PM/engineer · 🔍 Gold-set audit · 🧑 Human queue (one-tap environment prompt)
 
 ## HITL Architecture
 <!-- When does a human step in? What's the escalation path? -->
+Confidence <70% OR a flagged adversarial pattern (silence, out-of-taxonomy environment, corrupted sensor signal) → don't auto-apply, prompt the user with the lightweight "Where are you?" one-tap flow instead of guessing. The user's answer feeds back into the golden dataset within 24 hours and updates that user's personal profile immediately — the same correction loop that feeds the weekly gold-set audit also absorbs this human-in-loop input, so there's a single pipeline rather than two parallel ones.
 
 ## Red-Team Findings
 *What failure mode did your partner find that you missed?*
