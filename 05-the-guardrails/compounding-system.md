@@ -24,11 +24,15 @@ Correction data lives per-user in logs but isn't wired to the places that should
 
 ## Governance Policy
 
-**Scope:**
-**Autonomy boundaries:**
-**Escalation triggers:**
-**Audit cadence:**
-**Regulatory exposure (EU AI Act / other):**
+**Scope:** Covers the environment classifier, the Small→Mid→Frontier model cascade (explanations, ambiguous-signal resolution), the correction/golden-dataset pipeline, and the not-yet-built Network Intelligence aggregation layer. Data in scope: acoustic/environmental sensor signals, GPS-derived location context, per-user correction logs, hearing-profile data. Users in scope: primary hearing aid wearers and linked caregivers. Explicitly out of scope: the hearing aid firmware/DSP itself, which stays owned and regulated by the OEM (Phonak/Oticon/etc.) — Wavelength only orchestrates via the companion app layer.
+
+**Autonomy boundaries:** OK solo — auto-applying a profile at >90% confidence, routine classifier inference, routine weekly insight generation. Needs human review (async) — any new classifier model version must clear the golden-dataset bar (90% accuracy, <2% hallucination) and get sign-off from the on-call PM/eng owner before deploy. Always human (blocking) — auto-applying below the 70% confidence floor without the human-in-loop prompt is a policy violation; any Network Intelligence launch requires legal/privacy sign-off first; caregiver dashboard access is only ever granted by explicit primary-user consent, never auto-granted by the AI.
+
+**Escalation triggers:** Hallucination rate >3% → pages on-call PM, auto-rollback to confirm-before-apply. Drift velocity >1%/wk → triggers gold-set audit. Same "Unknown"/out-of-taxonomy environment flagged 3+ times for one user → escalate to human review of whether the taxonomy needs expanding. Any signal suggesting a user's hearing loss is worsening rapidly → routed to a human-reviewed check-in, never acted on autonomously — Wavelength isn't a licensed medical device and shouldn't make clinical inferences on its own.
+
+**Audit cadence:** Real-time — latency p95, hallucination rate (Datadog). Weekly — golden-dataset accuracy run + gold-set audit trigger review. Monthly — escalation-trigger log review (how often human-in-loop fired, and why) + confidence-threshold calibration check. Quarterly — full governance policy review, regulatory-exposure reassessment, and a red-team pass on the adversarial rows in the golden dataset.
+
+**Regulatory exposure (EU AI Act / other):** EU AI Act — likely "limited risk" (transparency obligations) rather than "high risk," since Wavelength personalizes an existing prescribed device rather than diagnosing or treating, but this is a genuinely nuanced boundary (it does autonomously adjust a health device's settings) and needs actual legal review, not an assumption. GDPR — audio/location/hearing data is sensitive; Network Intelligence's cross-user data sharing must be anonymized and explicitly opt-in under Article 9 (special category health data). Sector-specific — if Wavelength ever integrates directly with hearing aid firmware rather than staying at the companion-app layer, FDA/medical-device rules could apply (see Apple's AirPods Pro Hearing Aid FDA clearance as precedent) — flagged as a line not to cross without separate regulatory review. Required controls: encryption at rest/in transit, audit logs on every auto-applied profile change, the human-in-loop path already built via Confidence UX, and a legal gate before Network Intelligence ships.
 
 ## Agent Topology
 <!-- If using agents: what can each agent do? What can't it do? Who approves what? -->
