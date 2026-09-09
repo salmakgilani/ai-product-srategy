@@ -10,8 +10,8 @@
 | Cross-Domain Transfer | Learned response to one environment's acoustic signature | Starting-point guess for a similar new environment | N | missing |
 | Network Intelligence | Anonymized, opted-in corrections across similar users | Smarter cold-start defaults for new users | Y | missing |
 
-**Broken loop identified by partner:**
-**Fix plan:**
+**Broken loop identified by partner:** Corrections Transfer — documented as active ("Y" in golden-dataset.md's User Control Surface) but not actually implemented; the Kill Switch audit independently confirms Portability Score: Locked, with no correction-to-retraining pipeline built. The loop is theoretical, not real, and the two documents contradict each other. Audit also surfaced a Samsung-path gap: no data-minimization/redaction step before location and hearing-profile context reaches third-party frontier model providers.
+**Fix plan:** (1) Downgrade the golden-dataset.md claim from "Y" to "Planned — 48hr action item" so no document overstates a capability that doesn't exist yet. (2) Build the actual correction-logging pipeline per the existing Kill Switch 48-hour action before re-marking it "Y." (3) Add a data-minimization/redaction step to Governance Policy's Required Controls, stripping location and hearing-profile identifiers before any request reaches a third-party frontier model.
 
 ## Frozen-Model Stress Test
 *If the foundation model doesn't improve for 3 months and competitors have identical access — does Wavelength still improve?*
