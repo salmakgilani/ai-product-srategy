@@ -37,14 +37,17 @@ Correction data lives per-user in logs but isn't wired to the places that should
 ## Agent Topology
 <!-- If using agents: what can each agent do? What can't it do? Who approves what? -->
 
-## Shadow AI Audit
+## Shadow AI Audit (user-side)
+<!-- Tool = workaround · Owner = signal source (workflow/trust/capability/pricing gap) · Risk Level = frequency · Decision = build/partner/ignore -->
 
 | Tool | Owner | Risk Level | Decision |
 |------|-------|-----------|----------|
-| | | H / M / L | keep / govern / kill |
-| | | H / M / L | keep / govern / kill |
-| | | H / M / L | keep / govern / kill |
+| Manually naming/remembering "special" places (Mom's kitchen, church) since Wavelength's taxonomy only covers Restaurant/Office/Outdoors/Car/Home | Capability gap | H | build |
+| Calling their audiologist to ask "is this normal?" instead of trusting Wavelength's own confidence indicator when a profile shifts unexpectedly | Trust gap | M | partner |
+| Layering phone-native accessibility tools (iPhone Live Listen, Sound Recognition) on top of Wavelength in the loudest environments (concerts, stadiums) | Capability gap | H | build |
+| Texting a family member a screenshot of their profile instead of paying for the in-app Caregiver Dashboard | Pricing gap | M | ignore |
+| Writing a manual reminder ("lower volume before the movies") since there's no scheduled/calendar-linked profile support | Workflow gap | L | ignore |
 
-**Total tools found:**
-**Tools after triage:**
-**Estimated hidden spend:**
+**Total tools found:** 5
+**Tools after triage:** 2 (custom environment labels, high-noise taxonomy expansion)
+**Estimated hidden spend:** ~$0 in direct adjacent spend — none of these are paid tools, they're calls, notes, and existing free phone features. The real cost is churn/abandonment risk, not diverted dollars.
